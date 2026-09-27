@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Sierpinski Carpet</title>
+
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 24px;
+    }
+
+    .controls {
+      margin-bottom: 16px;
+    }
+
+    canvas {
+      display: block;
+      border: 1px solid #aaa;
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+
+  <!-- 정점의 위치를 전달하는 셰이더 -->
+  <script id="vertex-shader" type="x-shader/x-vertex">
+    attribute vec4 vPosition;
+
+    void main() {
+        gl_Position = vPosition;
+    }
+  </script>
+
+  <!-- 도형의 색상을 지정하는 셰이더 -->
+  <script id="fragment-shader" type="x-shader/x-fragment">
+    precision mediump float;
+    uniform vec4 uColor;
+
+    void main() {
+        gl_FragColor = uColor;
+    }
+  </script>
+
+  <script src="../Common/webgl-utils.js"></script>
+  <script src="../Common/initShaders.js"></script>
+  <script src="../Common/MV.js"></script>
+  <script src="carpet.js"></script>
+</head>
+
+<body>
+<h1>Sierpinski Carpet</h1>
+
+<div class="controls">
+  <label for="depth">분할 횟수:</label>
+  <input id="depth" type="range"
+         min="0" max="5" step="1" value="3">
+  <span id="depth-value">3</span>
+
+  <label for="color">도형 색상:</label>
+  <input id="color" type="color" value="#1565c0">
+</div>
+
+<p id="info"></p>
+
+<canvas id="gl-canvas" width="729" height="729">
+  이 브라우저는 canvas를 지원하지 않습니다.
+</canvas>
+</body>
+</html>
